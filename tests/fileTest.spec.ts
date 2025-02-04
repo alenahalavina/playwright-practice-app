@@ -44,7 +44,6 @@ test('Locator syntax rule', async({page}) => {
 
  
  test('User facing locators', async({page}) => {
-    await page.getByTestId('SignIn').click()
 
     await page.getByRole('textbox', {name:'Email'}).first().click()
     
@@ -56,7 +55,7 @@ test('Locator syntax rule', async({page}) => {
 
     await page.getByText('Using the Grid').click()
 
-    await page.getByTestId('SignIn').click()
+   // await page.getByTestId('SignIn').click()
 
     // await page.getByTitle('IoT Dashboard').click()
  })
