@@ -56,7 +56,7 @@ test('User facing locators', async({page}) => {
 
     await page.getByTestId('SignIn').click()
 
-    // await page.getByTitle('IoT Dashboard').click()
+    await page.getByTitle('IoT Dashboard').click()
  })
 
  test('locating child elements', async({page}) => {
@@ -68,4 +68,13 @@ test('User facing locators', async({page}) => {
  })
    
 
+test('locating parent elements', async({page}) =>{
+    await page.locator('nb-card', {hasText: "Using the Grid"}).getByRole('textbox', {name:'Email'}).click()
+    await page.locator('nb-card', {has: page.locator('#inputEmail1')}).getByRole('textbox', {name:'Email'}).click()
+    await page.locator('nb-card').filter({hasText: 'Basic form'}).getByRole('textbox', {name:'Email'}).click()
+    await page.locator('nb-card').filter({has: page.locator('.status-danger')}).getByRole('textbox', {name:'Password'}).click()
 
+    await page.locator('nb-card').filter({has: page.locator('nb-checkbox')}).filter({hasText: "Sign in"})
+        .getByRole('textbox', {name:'Email'}).click()
+    await page.locator(':text-is("Using the Grid")').locator('..').getByRole('textbox', {name:'Email'}).click()
+})
