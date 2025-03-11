@@ -68,7 +68,7 @@ test('User facing locators', async({page}) => {
  })
    
 
-test('locating parent elements', async({page}) =>{
+test('locating parent elements', async({page}) => {
     await page.locator('nb-card', {hasText: "Using the Grid"}).getByRole('textbox', {name:'Email'}).click()
     await page.locator('nb-card', {has: page.locator('#inputEmail1')}).getByRole('textbox', {name:'Email'}).click()
     await page.locator('nb-card').filter({hasText: 'Basic form'}).getByRole('textbox', {name:'Email'}).click()
@@ -79,7 +79,7 @@ test('locating parent elements', async({page}) =>{
     await page.locator(':text-is("Using the Grid")').locator('..').getByRole('textbox', {name:'Email'}).click()
 })
 
-test('Reusing the locators', async({page}) =>{
+test('Reusing the locators', async({page}) => {
     const basicForm = page.locator('nb-card').filter({hasText: 'Basic form'})
     const emailField = basicForm.getByRole('textbox', {name:'Email'})
 
@@ -111,5 +111,24 @@ test('Extracting values', async({page}) => {
 
     const placeholderValue = await emailField.getAttribute('placeholder')
     expect (placeholderValue).toEqual('Email')
+
+})
+
+test('Assertions', async({page}) => {
+    const basicFormButton = page.locator('nb-card').filter({hasText: 'Basic form'}).locator('button')
+    
+    //General assertion
+    const value = 5
+    expect(value).toEqual(5)
+
+    const text = await basicFormButton.textContent()
+    expect(text).toEqual("Submit")
+
+    //Locator assertion
+    await expect(basicFormButton).toHaveText('Submit')
+
+    //Soft assetion
+    await expect.soft(basicFormButton).toHaveText('Submit')
+    await basicFormButton.click()
 
 })
