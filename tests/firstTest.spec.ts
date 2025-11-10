@@ -24,14 +24,14 @@ test('Locator syntax rule', async({page}) => {
      page.locator('[placeholder="Email"]')
 
      // by Class value (full)
-     page.locator('input-full-width size-medium status-basic shape-rectangle nb-transition')
+     page.locator('[class="input-full-width size-medium status-basic shape-rectangle nb-transition"]')
 
      //combine different selectors
      page.locator('input[placeholder="Email"][nbinput]')
 
      //by XPath (NOT RECOMMENTED)
      // * (Wildcard Selector) It tells XPath to find any tag (div, input, span, etc.) that has id="inputEmail1"
-     // The @ symbol is used to select attributes in XPath. Find find any tag where id="#inputEmail1".
+     // The @ symbol is used to select attributes in XPath. Find any tag where id="#inputEmail1".
      // '//' Start from anywhere in the document instead of from the root.
      page.locator('//*[@id=inputEmail1]') 
 
