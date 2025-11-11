@@ -99,7 +99,6 @@ test('Extracting values', async({page}) => {
     expect(buttonText).toEqual('Submit') 
 
     //all text values
-    await page.locator('nb-radio').allTextContents()
     const allRadioButtonLabels = await page.locator('nb-radio').allTextContents()
     expect(allRadioButtonLabels).toContain('Option 1') 
 
