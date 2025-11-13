@@ -10,10 +10,19 @@ test.describe('Forms Layouts page', () => {
         await page.getByText('Form Layouts').click()
     })
 
-    test('inout fields', async({page}) => {
-        const usingTheGridEmailInut = page.locator('nb-card', {hasText: "Using the Grid"}).getByRole('textbox', { name: "Email" })
+    test('input fields', async({page}) => {
+        const usingTheGridEmailInput = page.locator('nb-card', {hasText: "Using the Grid"}).getByRole('textbox', {name: "Email"})
 
-        await usingTheGridEmailInut.fill('test@test.com')
+        await usingTheGridEmailInput.fill('test@test.com')
+        await usingTheGridEmailInput.clear()
+        await usingTheGridEmailInput.pressSequentially('test@test.com', {delay: 500})
+
+        //gerneric assertions
+        const inputValue = await usingTheGridEmailInput.inputValue()
+        expect(inputValue).toEqual('test@test.com')
+
+        //locator assertions
+        await expect(usingTheGridEmailInput).toHaveValue('test@test.com')        
     })
 
 })
