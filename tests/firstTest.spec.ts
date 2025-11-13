@@ -10,6 +10,36 @@ test.beforeEach(async({page}) => {
     await page.getByText('Form Layouts').click()
 })
 
+test.describe('suite1', () => {
+    test.beforeEach(async({page}) => {
+        await page.getByText('Charts', { exact: true }).click()  
+    })
+    
+    test('the first test1', async({page}) => {
+        await page.getByText('Form Layouts').click()
+    })
+    
+    test('navigate to datepickepage1', async({page}) => {
+        await page.getByText('Datepicker').click()
+    })
+
+})
+
+test.describe('suite2', () => {
+    test.beforeEach(async({page}) => {
+        await page.getByText('Forms').click()  
+    })
+    
+    test('the first test2', async({page}) => {
+        await page.getByText('Form Layouts').click()
+    })
+    
+    test('navigate to datepickepage2', async({page}) => {
+        await page.getByText('Datepicker').click()
+    })
+
+})
+
 test('Locator syntax rule', async({page}) => {
     //by Tag name
     await page.locator('input').first().click()
