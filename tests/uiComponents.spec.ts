@@ -25,4 +25,38 @@ test.describe('Forms Layouts page', () => {
         await expect(usingTheGridEmailInput).toHaveValue('test@test.com')        
     })
 
+    test('radio buttons', async({page}) => {
+        const usingTheGridForm = page.locator('nb-card', {hasText: "Using the Grid"})
+        
+        //await usingTheGridForm.getByLabel('Option 1').check({force: true})
+        await usingTheGridForm.getByRole('radio', {name: 'Option 1'}).check({force: true})
+        const readioStatus = await usingTheGridForm.getByRole('radio', {name: 'Option 1'}).isChecked()
+        expect(readioStatus).toBeTruthy()
+        await expect(usingTheGridForm.getByRole('radio', {name: 'Option 1'})).toBeChecked()
+
+        await usingTheGridForm.getByRole('radio', {name: 'Option 2'}).check({force: true})
+        expect(await usingTheGridForm.getByRole('radio', {name: 'Option 1'}).isChecked()).toBeFalsy()
+        expect(await usingTheGridForm.getByRole('radio', {name: 'Option 2'}).isChecked()).toBeTruthy()
+        
+        
+
+})
+
+})
+
+    test('check boxes', async({page}) => {
+        await page.getByText('Modal & Overlays').click() 
+        await page.getByText('Toastr').click()
+
+        await page.getByRole('checkbox', {name: 'Hide on click'}).uncheck({force: true})
+        await page.getByRole('checkbox', {name: 'Prevent arising of duplicate toast'}).check({force: true})
+
+        const allBoxes = page.getByRole('checkbox')
+        for(const box of await allBoxes.all()){
+            await box.check({force: true})
+            expect(await box.isChecked()).toBeTruthy()
+        }
+
+
+        
 })
