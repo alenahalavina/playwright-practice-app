@@ -1,4 +1,5 @@
 import {test, expect} from '@playwright/test'
+import { get } from 'http'
 
 test.beforeEach(async({page}, testInfo) => {
     await page.goto('http://localhost:4200/')
@@ -59,4 +60,38 @@ test.describe('Forms Layouts page', () => {
 
 
         
+})
+
+test('Lists and Drodowns', async({page}) => {
+    const dropDownMenu = page.locator('ngx-header nb-select') 
+    await dropDownMenu.click()
+
+    page.getByRole('list') //when there is only one list, UL tag
+    page.getByRole('listitem') //when there are multiple lists, LI tag
+
+    //const optionList = page.getByRole('list').locator('nb-option') //options in the dropdown
+    const optionList = page.locator('nb-option-list nb-option') //options in the dropdown
+    await expect(optionList).toHaveText(["Light", "Dark", "Cosmic", "Corporate"])
+    await optionList.filter({hasText: 'Cosmic'}).click()
+    const header = page.locator('nb-layout-header')
+    await expect(header).toHaveCSS('background-color', 'rgb(50, 50, 89)')
+
+    const colors = {
+        "Light": "rgb(255, 255, 255)",
+        "Dark": "rgb(34, 43, 69)",
+        "Cosmic": "rgb(50, 50, 89)",
+        "Corporate": "rgb(255, 255, 255)"
+    }
+
+    await dropDownMenu.click()
+    for(const color in colors){
+        await optionList.filter({hasText: color}).click()
+        await expect(header).toHaveCSS('background-color', colors[color])
+        if (color !== "Corporate")
+            await dropDownMenu.click()
+
+
+    }
+
+
 })
