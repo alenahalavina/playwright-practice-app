@@ -1,5 +1,4 @@
 import {test, expect} from '@playwright/test'
-import { get } from 'http'
 
 test.beforeEach(async({page}, testInfo) => {
     await page.goto('http://localhost:4200/')
