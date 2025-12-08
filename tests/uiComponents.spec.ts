@@ -94,3 +94,17 @@ test('Lists and Drodowns', async({page}) => {
 
 
 })
+
+test('Tooltips', async({page}) => {
+    await page.getByText('Modal & Overlays').click() 
+    await page.getByText('Tooltip').click()
+
+    const toolTipCard = page.locator('nb-card', {hasText: 'Tooltip Placements'})
+    await toolTipCard.getByRole('button', {name: "Top"}).hover();
+
+    page.getByRole('tooltip') // If you have a role tooltip created. TOOLTIP APPEARS AS A NEW ELEMENT IN THE DOM
+    const toolTip = await page.locator('nb-tooltip').textContent()
+    expect(toolTip).toEqual('This is a tooltip')
+
+
+})
